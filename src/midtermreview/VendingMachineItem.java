@@ -9,11 +9,13 @@ import java.util.Scanner;
 
 public class VendingMachineItem {
 
+    public String candy;
     public double price;
 
+    /* we modify the candies to be an enum so that it is consistent */
     public static String[] candies = {"chocolate bar", "sour candy", "soft drink", "potato chips"};
     public static double[] prices = {1.50, 1.20, 1.80, 2.00};
-    public static boolean[] itemAvailability = {true, true, true, true}; // Initially all items are available
+    public static boolean[] itemAvailability = {true, false, true, true}; // Initially all items are available
 
     public VendingMachineItem() {
         // Constructor left blank intentionally
@@ -34,12 +36,20 @@ public class VendingMachineItem {
         }
     }
 
-    public static void checkAvailability() {
+    public static void selectItem() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the candy you wish to purchase: ");
+        String candy = sc.nextLine();
+
         for (int i = 0; i < itemAvailability.length; i++) {
-            if (itemAvailability[i] == true) {
-                System.out.print("The candy you have chosen is available!");
+            if (candy.equals(candies[0]) && itemAvailability[0] == true || candy.equals(candies[1]) && itemAvailability[1] == true
+                    || candy.equals(candies[2]) && itemAvailability[2] == true || candy.equals(candies[3]) && itemAvailability[3] == true) {
+                System.out.println("The candy you have chosen is available!");
+                break;
             } else {
-                System.out.print("The candy you have chosen is NOT available!");
+                System.out.println("The candy you have chosen is NOT available!");
+                break;
             }
         }
     }
@@ -47,6 +57,6 @@ public class VendingMachineItem {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         displayMenu();
-
+        selectItem();
     }
 }

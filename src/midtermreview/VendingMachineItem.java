@@ -33,6 +33,20 @@ public class VendingMachineItem {
         }
     }
     
+    public static void selectItem(int index) {
+        if (index < 1 || index > candies.length) {
+            System.out.println("Invalid selection.");
+            return;
+        }
+        
+        int arrayIndex = index - 1; // Convert to zero-based index
+        if (!itemAvailability[arrayIndex]) {
+            System.out.println(candies[arrayIndex] + " is currently unavailable.");
+        } else {
+            System.out.println("You have selected: " + candies[arrayIndex] + " - $" + prices[arrayIndex]);
+            itemAvailability[arrayIndex] = false; // Mark item as unavailable
+        }
+    }
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

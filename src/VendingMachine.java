@@ -5,7 +5,7 @@
 
 /**
  *
- * @author freny
+ * @author Arjun Singh Dhillon
  */
 public class VendingMachine {
 

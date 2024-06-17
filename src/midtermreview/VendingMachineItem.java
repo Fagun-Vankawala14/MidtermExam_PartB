@@ -50,7 +50,7 @@ public class VendingMachineItem {
             
             if (itemAvailability[indexOfItem]) 
             {
-                System.out.println("Here is your purchased item which is " + candies[indexOfItem]);
+                System.out.println("Here is your purchased item which is" + candies[indexOfItem]);
                 
                 itemAvailability[indexOfItem] = false; 
                 
@@ -62,7 +62,6 @@ public class VendingMachineItem {
             }
         }
     }
-    
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         displayMenu();

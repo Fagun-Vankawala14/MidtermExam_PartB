@@ -36,8 +36,6 @@ public class VendingMachineItem {
      public static void selectItem(int itemNumber) {
         if (itemNumber < 1 || itemNumber > candies.length) {
             System.out.println("Invalid selection. Please select a valid item number.");
-        } else if (!itemAvailability[itemNumber - 1]) {
-            System.out.println("Sorry, " + candies[itemNumber - 1] + " is out of stock. Please select another item.");
         } else {
             System.out.println("You have selected " + candies[itemNumber - 1] + " for $" + prices[itemNumber - 1] + ".");
         }

@@ -34,10 +34,49 @@ public class VendingMachineItem {
     }
     
     
+    public static void selectItem(int itemIndex, double moneyInserted) {
+        if (itemIndex < 0 || itemIndex >= candies.length) {
+            System.out.println("Invalid selection.");
+            return;
+        }
+
+        if (!itemAvailability[itemIndex]) {
+            System.out.println("Sorry, " + candies[itemIndex] + " is sold out.");
+            return;
+        }
+
+        if (moneyInserted < prices[itemIndex]) {
+            System.out.println("Insufficient funds. Please insert at least $" + prices[itemIndex]);
+            return;
+        }
+
+        // Process the purchase
+        itemAvailability[itemIndex] = false; // Mark the item as sold out
+        double change = moneyInserted - prices[itemIndex];
+        System.out.println("Dispensing " + candies[itemIndex]);
+        System.out.printf("Your change is $%.2f\n", change);
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        displayMenu();
-                
 
-      }
+        while (true) {
+            displayMenu();
+            System.out.println("Please select an item by entering the corresponding number (or 0 to exit):");
+            int selection = sc.nextInt();
+            if (selection == 0) {
+                System.out.println("Exiting the vending machine. Thank you!");
+                break;
+            }
+
+            System.out.println("Please insert money:");
+            double moneyInserted = sc.nextDouble();
+
+            // Adjust selection to match array index
+            selectItem(selection - 1, moneyInserted);
+        }
+
+        sc.close();
 }
+}
+

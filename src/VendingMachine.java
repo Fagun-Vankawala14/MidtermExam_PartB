@@ -11,10 +11,12 @@ public class VendingMachine {
 
     private final String name;
     private final double price;
+    private boolean isAvailable;
 
     public VendingMachine(String name, double price, boolean isAvailable) {
         this.name = name;
         this.price = price;
+        this.isAvailable = isAvailable;
     }
 
     public String getName() {
@@ -25,6 +27,13 @@ public class VendingMachine {
         return price;
     }
 
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+    }
 }
 
 

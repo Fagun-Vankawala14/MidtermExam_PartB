@@ -3,64 +3,88 @@ package midtermreview;
 import java.util.Scanner;
 
 public class VendingMachineItem {
-    public double price;
-    
-    public static String[] candies = {"chocolate bar", "sour candy", "soft drink", "potato chips"};
-    public static double[] prices = {1.50, 1.20, 1.80, 2.00};
-    public static boolean[] itemAvailability = {true, true, true, true}; // Initially all items are available
-    
-    public VendingMachineItem() {
-        // Constructor left blank intentionally
+    private String name;
+    private double price;
+    private boolean availability;
+
+    public VendingMachineItem(String name, double price, boolean availability) {
+        this.name = name;
+        this.price = price;
+        this.availability = availability;
     }
-    
+
+    public String getName() {
+        return name;
+    }
+
     public double getPrice() {
         return price;
     }
-    
-    public void setPrice(double givenPrice) {
-        price = givenPrice;
+
+    public boolean isAvailable() {
+        return availability;
     }
-    
-    public static void displayMenu() {
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
+    }
+}
+
+public class VendingMachine {
+    private VendingMachineItem[] items;
+
+    public VendingMachine(VendingMachineItem[] items) {
+        this.items = items;
+    }
+
+    public void displayMenu() {
         System.out.println("Welcome to the vending machine, here is a list of the possible candies:");
-        for (int i = 0; i < candies.length; i++) {
-            String availability = itemAvailability[i] ? "Available" : "Unavailable";
-            System.out.println((i+1) + ". " + candies[i] + " - $" + prices[i] + " - " + availability);
+        for (int i = 0; i < items.length; i++) {
+            String availability = items[i].isAvailable()? "Available" : "Unavailable";
+            System.out.println((i+1) + ". " + items[i].getName() + " - $" + items[i].getPrice() + " - " + availability);
         }
     }
-    
-    public static void selectItem() {
+
+    public void selectItem() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Please enter the number of the items you want to buy:");
+        System.out.println("Please enter the number of the items you want to purchase:");
         int choice = sc.nextInt();
         
-        if (choice < 1 || choice > candies.length) {
-            System.out.println("Invalid selection. Please try again.");
+        if (choice < 1 || choice > items.length) {
+            System.out.println("Invalid choice. Try again.");
         } else {
             int index = choice - 1;
-            if (itemAvailability[index]) {
-                System.out.println("You have selected " + candies[index] + " which costs $" + prices[index]);
-                System.out.println("Please insert the price: ");
+            if (items[index].isAvailable()) {
+                System.out.println("You have selected " + items[index].getName() + " which costs $" + items[index].getPrice());
+                System.out.println("Please insert the amount: ");
                 double amountInserted = sc.nextDouble();
                 
-                if (amountInserted >= prices[index]) {
-                    double change = amountInserted - prices[index];
-                    System.out.println("Thanks for your purchasing! Your change is $" + change);
-                    itemAvailability[index] = false; // Update the item as unavailable after purchase
+                if (amountInserted >= items[index].getPrice()) {
+                    double change = amountInserted - items[index].getPrice();
+                    System.out.println("Thanks for your purchase! Your change is $" + change);
+                    items[index].setAvailability(false); // Update the item as unavailable after purchase
                 } else {
                     System.out.println("Not enough amount inserted. Transaction cancelled.");
                 }
             } else {
-                System.out.println("Item is unavailable. Choose another item.");
+                System.out.println("Item unavailable.choose another item.");
             }
         }
     }
-    
+
     public static void main(String[] args) {
+        VendingMachineItem[] items = new VendingMachineItem[] {
+            new VendingMachineItem("chocolate bar", 1.50, true),
+            new VendingMachineItem("sour candy", 1.20, true),
+            new VendingMachineItem("soft drink", 1.80, true),
+            new VendingMachineItem("potato chips", 2.00, true)
+        };
+        
+        VendingMachine vendingMachine = new VendingMachine(items);
         Scanner sc = new Scanner(System.in);
         while (true) {
-            displayMenu();
-            selectItem();
+            vendingMachine.displayMenu();
+            vendingMachine.selectItem();
             System.out.println("Do you want to purchase another item? (yes or no)");
             String continueChoice = sc.next();
             if (!continueChoice.equalsIgnoreCase("yes")) {

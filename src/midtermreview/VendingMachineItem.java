@@ -33,10 +33,32 @@ public class VendingMachineItem {
         }
     }
     
+        public static void selectItem(int itemNumber) {
+        if (itemNumber < 1 || itemNumber > 4) {
+            System.out.println("Selection you made is not valid. Please choose a valid item number.");
+            return;
+        }
+       
+        int index = itemNumber - 1;
+        if (itemAvailability[index]) {
+            System.out.println("You have selected: " + candies[index] + " - $" + prices[index]);
+            System.out.println("Thank you for purchasing from us!");
+            itemAvailability[index] = false; 
+        } else {
+            System.out.println("Apologies, " + candies[index] + " is no longer available.");
+        }
+    }
+        
+        
+    
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         displayMenu();
+        
+        System.out.println("Please enter the number of the item you would like to purchase:");
+        int itemNumber = sc.nextInt();
+        selectItem(itemNumber);
                 
 
       }

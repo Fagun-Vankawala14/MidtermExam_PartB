@@ -1,3 +1,5 @@
+//Aayush Soni - 991730544
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,57 +7,30 @@
  */
 package midtermreview;
 
-import java.util.Scanner;
-
 public class VendingMachineItem {
-    public double price;
-    
-    public static String[] candies = {"chocolate bar", "sour candy", "soft drink", "potato chips"};
-    public static double[] prices = {1.50, 1.20, 1.80, 2.00};
-    public static boolean[] itemAvailability = {true, true, true, true}; // Initially all items are available
-    
-    public VendingMachineItem() {
-        // Constructor left blank intentionally
+    private String name;
+    private double price;
+    private boolean available;
+
+    public VendingMachineItem(String name, double price, boolean available) {
+        this.name = name;
+        this.price = price;
+        this.available = available;
     }
-    
+
+    public String getName() {
+        return name;
+    }
+
     public double getPrice() {
         return price;
     }
-    
-    public void setPrice(double givenPrice) {
-        price = givenPrice;
-    }
-    
-    public static void displayMenu() {
-        System.out.println("Welcome to the vending machine, here is a list of the possible candies:");
-        for (int i = 0; i < 4; i++) {
-            System.out.println((i+1) + ". " + candies[i] + " - $" + prices[i]);
-        }
-    }
-    
-    public static void selectItem(int choice) {
-    int index = choice - 1; 
-    if (index >= 0 && index < candies.length) {
-        if (itemAvailability[index]) {
-            System.out.println("You have selected: " + candies[index]);
-            System.out.println("Please insert $" + prices[index]);
-            itemAvailability[index] = false;
-        } else {
-            System.out.println("Sorry, " + candies[index] + " is currently unavailable.");
-        }
-    } else {
-        System.out.println("Invalid selection. Please choose a number from 1 to " + candies.length);
-    }
-}
-    
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        displayMenu();
-        
-        System.out.print("Enter your choice (1-" + candies.length + "): ");
-        int choice = sc.nextInt();
-        
-        selectItem(choice);
-    }
-}
 
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+}

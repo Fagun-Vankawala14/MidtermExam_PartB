@@ -34,6 +34,16 @@ public class VendingMachineItem {
         }
     }
 
+    public static void checkAvailability() {
+        for (int i = 0; i < itemAvailability.length; i++) {
+            if (itemAvailability[i] == true) {
+                System.out.print("The candy you have chosen is available!");
+            } else {
+                System.out.print("The candy you have chosen is NOT available!");
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         displayMenu();

@@ -8,54 +8,47 @@ package midtermreview;
 import java.util.Scanner;
 
 public class VendingMachineItem {
-    public double price;
+    private double price;
     
-    public static String[] candies = {"chocolate bar", "sour candy", "soft drink", "potato chips"};
-    public static double[] prices = {1.50, 1.20, 1.80, 2.00};
-    public static boolean[] itemAvailability = {true, true, true, true}; // Initially all items are available
-    
-    public VendingMachineItem() {
-        // Constructor left blank intentionally
+    private static final String[] CANDIES = {"chocolate bar", "sour candy", "soft drink", "potato chips"};
+    private static final double[] PRICES = {1.50, 1.20, 1.80, 2.00};
+    private static final boolean[] ITEM_AVAILABILITY = {true, true, true, true}; // Initially all items are available
+
+    public VendingMachineItem(int itemIndex) {
+        if (itemIndex >= 0 && itemIndex < CANDIES.length) {
+            if (ITEM_AVAILABILITY[itemIndex]) {
+                this.price = PRICES[itemIndex];
+                System.out.println(CANDIES[itemIndex] + " is available for $" + this.price);
+            } else {
+                System.out.println(CANDIES[itemIndex] + " is not available.");
+            }
+        } else {
+            System.out.println("Invalid item selection.");
+        }
     }
     
     public double getPrice() {
-        return price;
+        return this.price;
     }
     
     public void setPrice(double givenPrice) {
-        price = givenPrice;
+        this.price = givenPrice;
     }
-    
+
     public static void displayMenu() {
         System.out.println("Welcome to the vending machine, here is a list of the possible candies:");
-        for (int i = 0; i < 4; i++) {
-            System.out.println((i+1) + ". " + candies[i] + " - $" + prices[i]);
+        for (int i = 0; i < CANDIES.length; i++) {
+            System.out.println((i + 1) + ". " + CANDIES[i] + " - $" + PRICES[i] + (ITEM_AVAILABILITY[i] ? "" : " (Not available)"));
         }
     }
-    
-     public static void selectItem(int itemIndex) {
-        if (itemIndex >= 0 && itemIndex < candies.length) {
-            if (itemAvailability[itemIndex]) {
-                System.out.println(candies[itemIndex] + " is selected. Price: $" + prices[itemIndex]);
-                // Mark the item as unavailable
-                itemAvailability[itemIndex] = false;
-            } else {
-                System.out.println(candies[itemIndex] + " is out of stock.");
-            }
-        } else {
-            System.out.println("Invalid item selected.");
-        }
-    }
-    
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         displayMenu();
-        
-    System.out.println("Please enter the number of the item you want to select:");
-        int choice = sc.nextInt();
-        selectItem(choice - 1);    
-    
                 
+        System.out.println("Please enter the number of the item you wish to purchase:");
+        int choice = sc.nextInt() - 1;
 
-      }
+        VendingMachineItem item = new VendingMachineItem(choice);
+    }
 }

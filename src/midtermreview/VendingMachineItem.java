@@ -1,39 +1,50 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+package midtermreview;
 
-/**
- *
- * @author freny
- */
+import java.util.Scanner;
+
 public class VendingMachineItem {
+    private static final String CURRENCY = "$";
+    private double priceInDollars;
 
-    private final String name;
-    private final double price;
-    private boolean isAvailable;
+    private static final String[] SNACKS = {"Chocolate Bar", "Sour Candy", "Soft Drink", "Potato Chips"};
+    private static final double[] PRICES_IN_DOLLARS = {1.5, 1.2, 1.8, 2.0};
+    private static boolean[] ITEM_AVAILABILITY = {true, true, true, true}; // Initially all items are available
 
-    public VendingMachineItem(String name, double price, boolean isAvailable) {
-        this.name = name;
-        this.price = price;
-        this.isAvailable = isAvailable;
+    public VendingMachineItem(int itemIndex) {
+        if (itemIndex >= 0 && itemIndex < SNACKS.length) {
+            if (ITEM_AVAILABILITY[itemIndex]) {
+                this.priceInDollars = PRICES_IN_DOLLARS[itemIndex];
+                System.out.println(SNACKS[itemIndex] + " is available for " + CURRENCY + this.priceInDollars);
+            } else {
+                System.out.println(SNACKS[itemIndex] + " is not available.");
+            }
+        } else {
+            System.out.println("Invalid item selection.");
+        }
     }
 
-    public String getName() {
-        return name;
+    public double getPriceInDollars() {
+        return this.priceInDollars;
     }
 
-    public double getPrice() {
-        return price;
+    public void setPriceInDollars(double givenPrice) {
+        this.priceInDollars = givenPrice;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
+    public static void displayMenu() {
+        System.out.println("Welcome to the vending machine, here is a list of the possible snacks:");
+        for (int i = 0; i < SNACKS.length; i++) {
+            System.out.println((i + 1) + ". " + SNACKS[i] + " - " + CURRENCY + PRICES_IN_DOLLARS[i] + (ITEM_AVAILABILITY[i] ? "" : " (Not available)"));
+        }
     }
 
-    public void setAvailable(boolean isAvailable) {
-        this.isAvailable = isAvailable;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        displayMenu();
+
+        System.out.println("Please enter the number of the item you wish to purchase:");
+        int choice = sc.nextInt() - 1;
+
+        VendingMachineItem item = new VendingMachineItem(choice);
     }
 }
-
-

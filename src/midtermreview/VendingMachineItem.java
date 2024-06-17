@@ -31,7 +31,19 @@ public class VendingMachineItem {
         for (int i = 0; i < 4; i++) {
             System.out.println((i+1) + ". " + candies[i] + " - $" + prices[i]);
         }
+       
+   }
+    public void selectItem(Item item) {
+    if (isItemAvailable(item)) {
+        // select the item
+    } else {
+        System.out.println("Item is not available");
     }
+}
+
+private boolean isItemAvailable(Item item) {
+    return item.isAvailable();
+}
     
     
     public static void main(String[] args) {

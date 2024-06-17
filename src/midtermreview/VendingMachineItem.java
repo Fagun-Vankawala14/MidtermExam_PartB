@@ -14,8 +14,17 @@ public class VendingMachineItem {
     public static double[] prices = {1.50, 1.20, 1.80, 2.00};
     public static boolean[] itemAvailability = {true, true, true, true}; // Initially all items are available
     
-    public VendingMachineItem() {
-        // Constructor left blank intentionally
+    public VendingMachineItem(int itemIndex) {
+       if (itemIndex >= 0 && itemIndex < candies.length) {
+            if (itemAvailability[itemIndex]) {
+                price = prices[itemIndex];
+                System.out.println(candies[itemIndex] + " is available for $" + price);
+            } else {
+                System.out.println(candies[itemIndex] + " is not available.");
+            }
+        } else {
+            System.out.println("Invalid item selection.");
+        }
     }
     
     public double getPrice() {
@@ -38,6 +47,9 @@ public class VendingMachineItem {
         Scanner sc = new Scanner(System.in);
         displayMenu();
                 
+        System.out.println("Please enter the number of the item you wish to purchase:");
+        int choice = sc.nextInt() - 1;
 
+        VendingMachineItem item = new VendingMachineItem(choice);
       }
 }

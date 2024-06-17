@@ -33,11 +33,40 @@ public class VendingMachineItem {
         }
     }
     
+    public static void selectItem() {
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Select a number for selecting the items from vending machine(1-4): ");
+        
+        int selectedItem = sc.nextInt();
+
+        if (selectedItem < 1 || selectedItem > candies.length) 
+        {
+            System.out.println("Number is not in list. Please try again");
+        } 
+        else 
+        {
+            int indexOfItem = selectedItem - 1;
+            
+            if (itemAvailability[indexOfItem]) 
+            {
+                System.out.println("Here is your purchased item which is " + candies[indexOfItem]);
+                
+                itemAvailability[indexOfItem] = false; 
+                
+                System.out.println("Thank you for purchasing the item from vending machine.");
+            } 
+            else 
+            {
+                System.out.println("Sorry the item is not available at the moment.");
+            }
+        }
+    }
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         displayMenu();
-                
+        selectItem();      
 
       }
 }
